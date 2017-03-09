@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.flw.mynote.xunfei.IatText;
+import com.flw.mynote.xunfei.Understander;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -17,6 +18,8 @@ public class Main2Activity extends AppCompatActivity {
     private IatText iatText;
     private EditText contentEdit;
     private Observer observer;
+
+    private Understander understanderText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class Main2Activity extends AppCompatActivity {
     }
     private void initObject() {
         iatText = new IatText(this);
+        understanderText = new Understander(this);
     }
 
     private void initView() {
@@ -57,8 +61,10 @@ public class Main2Activity extends AppCompatActivity {
 
             @Override
             public void onNext(Object value) {
-                contentEdit.setText((String) value);
-                contentEdit.setSelection(((String) value).length());
+                String text = (String) value;
+                contentEdit.setText(text);
+                contentEdit.setSelection(text.length());
+                understanderText.startUnderdtander(text);
             }
 
             @Override
