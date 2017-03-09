@@ -1,4 +1,4 @@
-package com.flw.mynote;
+package com.flw.mynote.xunfei;
 
 import android.content.Context;
 import android.os.Bundle;
