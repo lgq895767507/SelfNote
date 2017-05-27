@@ -25,12 +25,16 @@ import static com.iflytek.cloud.VerifierResult.TAG;
 public class Understander {
 
     private TextUnderstander mTextUnderstander;
-
+    private OnResponResultText mOnResponResultText;
     private Context mContext;
 
     public Understander(Context context) {
         mContext = context;
         init();
+    }
+
+    public void getResponText(OnResponResultText onResponResultText){
+        mOnResponResultText = onResponResultText;
     }
 
     private void init() {
@@ -73,6 +77,9 @@ public class Understander {
                 String text = result.getResultString();
                 if (!TextUtils.isEmpty(text)) {
                     Log.i("lgq", "text:" + text);
+                    if (mOnResponResultText != null){
+                        mOnResponResultText.getResponResultText(text);
+                    }
                 }
             } else {
                 Log.d(TAG, "understander result:null");
@@ -86,5 +93,9 @@ public class Understander {
 
         }
     };
+
+    public interface OnResponResultText{
+        public void getResponResultText(String text);
+    }
 
 }

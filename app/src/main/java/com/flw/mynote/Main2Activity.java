@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.flw.mynote.xunfei.IatText;
 import com.flw.mynote.xunfei.Understander;
@@ -21,6 +22,7 @@ public class Main2Activity extends AppCompatActivity {
     private IatText iatText;
     private EditText contentEdit;
     private Observer observer;
+    private TextView answerText;
 
     private Understander understanderText;
 
@@ -57,6 +59,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private void initView() {
         contentEdit = (EditText) findViewById(R.id.contentEdit);
+        answerText = (TextView) findViewById(R.id.answerText);
         showContent();
     }
 
@@ -73,6 +76,12 @@ public class Main2Activity extends AppCompatActivity {
                 contentEdit.setText(text);
                 contentEdit.setSelection(text.length());
                 understanderText.startUnderdtander(text);
+                understanderText.getResponText(new Understander.OnResponResultText() {
+                    @Override
+                    public void getResponResultText(String text) {
+                        answerText.setText(text);
+                    }
+                });
             }
 
             @Override
