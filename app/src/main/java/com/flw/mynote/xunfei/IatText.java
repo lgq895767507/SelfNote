@@ -3,6 +3,7 @@ package com.flw.mynote.xunfei;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.flw.mynote.utils.JsonParser;
 import com.iflytek.cloud.ErrorCode;
@@ -51,6 +52,12 @@ public class IatText {
         mIat.startListening(mRecoListener);
     }
 
+    public void stopListen(){
+        if (mIat != null) {
+            mIat.stopListening();
+        }
+    }
+
     private RecognizerListener mRecoListener = new RecognizerListener() {
         @Override
         public void onVolumeChanged(int i, byte[] bytes) {
@@ -84,7 +91,7 @@ public class IatText {
 
         @Override
         public void onError(SpeechError speechError) {
-
+            Toast.makeText(mContext, "语音识别错误：" + speechError.getErrorDescription(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -97,7 +104,7 @@ public class IatText {
         mIat.setParameter(SpeechConstant.ENGINE_TYPE,SpeechConstant.TYPE_CLOUD);
         mIat.setParameter(SpeechConstant.DOMAIN, "iat");
         mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
-        mIat.setParameter(SpeechConstant.ACCENT, "mandarin ");
+        mIat.setParameter(SpeechConstant.ACCENT, "mandarin");
     }
 
     private InitListener mInitListener = new InitListener() {
